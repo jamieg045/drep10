@@ -3,8 +3,8 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Content from './components/content';
-import Header from './components/header';
-import Footer from './components/footer';
+import Read from './components/read';
+import Create from './components/create';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -15,6 +15,8 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 // This is so when the user navigates from page to page it happens instantaneously and they can navigate from every page automatically.
 // The Routes then take the path of the main page and the other pages such as create & read and inserts data from files Content, Header and Footer
 // And then takes the data from all three files and outputs them to the console on the navigation pages
+
+//Same method as last week's lab but replaced with a read & create component instead of Header & Footer
 function App() {
   return (
     <BrowserRouter>
@@ -31,8 +33,8 @@ function App() {
       </Navbar>
       <Routes>
         <Route path='/' element={<Content></Content>}></Route>
-        <Route path='/create' element={<Header></Header>}></Route>
-        <Route path='/read' element={<Footer></Footer>}></Route>
+        <Route path='/create' element={<Create></Create>}></Route>
+        <Route path='/read' element={<Read></Read>}></Route>
       </Routes>
 
       </div>
