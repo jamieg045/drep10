@@ -1,43 +1,35 @@
 import Books from './books'
+import {useEffect, useState} from 'react';
+import axios from 'axios';
 
-const books = [
-    {
-    "title": "Learn Git in a Month of Lunches",
-    "isbn": "1617292419",
-    "pageCount": 0,
-    "thumbnailUrl":
-    "https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/umali.jpg",
-    "status": "MEAP",
-    "authors": ["Rick Umali"],
-    "categories": []
-    },
-    {
-    "title": "MongoDB in Action, Second Edition",
-    "isbn": "1617291609",
-    "pageCount": 0,
-    "thumbnailUrl":
-     "https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/banker2.jpg","status": "MEAP",
-    "authors": [
-    "Kyle Banker",
-    ],
-    "categories": []
-    },
-    {
-        "title": "Getting MEAN with Mongo, Express, Angular, and Node",
-        "isbn": "1617292036",
-        "pageCount": 0,
-        "thumbnailUrl":
-         "https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/sholmes.jpg","status": "MEAP",
-        "authors": ["Simon Holmes"],
-        "categories": []
-        }
-        ]
 
+//We added useEffect and useState imports from React
+//These imports allow us to connect a component with an external component along with axios
+//We use these components to call the data on jsonblob and output it onto the webpage         
 function Read()
 {
+    const [books, setData] = useState([]);
+
+    useEffect(
+        (
+        )=>{
+            axios.get('https://jsonblob.com/api/jsonblob/1161593332966481920')
+            .then(
+                (response)=>{
+                    setData(response.data.books);
+                }
+            )
+            .catch(
+                (error)=>{
+                    console.log(error);
+                }
+            );
+        },[]
+    );
+
     return (
     <div>
-        <h3>Hello Read</h3>
+        <h3>These are your Books!</h3>
         <Books myBooks={books}></Books>
     </div>
     );
