@@ -13,10 +13,11 @@ function Read()
     useEffect(
         (
         )=>{
-            axios.get('https://jsonblob.com/api/jsonblob/1161593332966481920')
+            //Replaced our URL with the serverside URL so we can access the data contained in our server via axios
+            axios.get('http://localhost:4000/api/books')
             .then(
                 (response)=>{
-                    setData(response.data.books);
+                    setData(response.data.Jamiebooks);
                 }
             )
             .catch(

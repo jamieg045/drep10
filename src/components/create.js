@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from 'axios';
 
 //Added functionality to the create function made last week
 //Added functionality to take in three values title, cover, author
@@ -14,6 +15,18 @@ function Create() {
         console.log("Title: "+title);
         console.log("Cover URL: "+cover);
         console.log("Author: "+author);
+
+        //Made an array taking in the three values from the handleSubmit
+        const book = {
+            title:title,
+            cover:cover,
+            author:author
+        }
+
+        //Used axios to make a POST request to the server side application where we send the data input by the user in the three datatypes instantiated from Create()
+        axios.post('http://localhost:4000/api/books', book)
+        .then()
+        .catch();
     }
 
     //Our return method that takes in a form
