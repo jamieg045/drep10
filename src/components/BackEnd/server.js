@@ -3,6 +3,9 @@ const express = require('express')
 const app = express()
 const port = 4000
 const bodyParser = require('body-parser')
+const mongoose = require('mongoose');
+
+
 
 //Bodyparser helps us parse over the POST method and add the data to output to the user
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -27,60 +30,49 @@ next();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+main().catch(err => console.log(err));
+
+async function main() {
+    await mongoose.connect('mongodb+srv://g00377566:Skyfall007@cluster0.kkb2dnn.mongodb.net/');
+}
+
+const bookSchema = new mongoose.Schema({
+    title:String,
+    cover:String,
+    author:String
+    
+});
+
+const BookModel = mongoose.model("books", bookSchema);
 
 
 
 //Get method that takes in an array of JSON values and outputs them onto the console using a request
-app.get('/api/books', (req,res) => {
-    const myBook = [
-        {
-        "title": "Learn Git in a Month of Lunches",
-        "isbn": "1617292419",
-        "pageCount": 0,
-        "thumbnailUrl":
-        "https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/umali.jpg",
-        "status": "MEAP",
-        "authors": ["Rick Umali"],
-        "categories": []
-        },
-        {
-        "title": "MongoDB in Action, Second Edition",
-        "isbn": "1617291609",
-        "pageCount": 0,
-        "thumbnailUrl":
-        "https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/banker2.jpg",
-        "status": "MEAP",
-        "authors": [
-        "Kyle Banker",
-        "Peter Bakkum",
-        "Tim Hawkins",
-        "Shaun Verch",
-        "Douglas Garrett"
-        ],
-        "categories": []
-        },
-        {
-            "title": "Getting MEAN with Mongo, Express, Angular, and Node",
-            "isbn": "1617292036",
-            "pageCount": 0,
-            "thumbnailUrl":
-            "https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/sholmes.jpg",
-            "status": "MEAP",
-            "authors": ["Simon Holmes"],
-            "categories": []
-            }
-            ]
-            res.json({
-                Jamiebooks:myBook
-            })
-        }
+app.get('/api/books', async (req,res) => {
+    let books = await BookModel.find({});
+    console.log(books);
+    res.json(books);
+  }
 )
+
+app.get('/api/books/:id', async (req, res)=> {
+    console.log(req.params.id);
+    let book = await BookModel.findById({_id:req.params.identifier});
+    res.send(book);
+    })
 
 //POST method to output any new data input by the user in the clientside to the server side console
 app.post('/api/books', (req, res)=> {
     console.log(req.body);
-    res.send("Data Recieved");
-})
+
+    BookModel.create({
+        title:req.body.title,
+        cover:req.body.cover,
+        author:req.body.author,
+    }).then(() => { res.send('Book recieved'); })
+        .catch(() => { res.send('Book not recieved'); })
+
+        })
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

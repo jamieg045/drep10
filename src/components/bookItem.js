@@ -6,10 +6,10 @@ function BookItem(props)
 {
     return (
         <Card style={{ width: '18rem' }}>
-        <Card.Img src={props.myBook.thumbnailUrl}></Card.Img>
+        <Card.Img src={props.myBook.cover}></Card.Img>
         <Card.Body>
           <Card.Title>{props.myBook.title}</Card.Title>
-          <Card.Text>{props.myBook.authors}</Card.Text>
+          <Card.Text>{props.myBook.author}</Card.Text>
         </Card.Body>
       </Card>
     );
