@@ -46,7 +46,7 @@ const bookSchema = new mongoose.Schema({
 const BookModel = mongoose.model("books", bookSchema);
 
 app.put('/api/books/:id', async (req,res)=>{
-    console.log("Update: "+req.params.id);
+    console.log("Updated: "+ req.params.id);
     let book = await BookModel.findByIdAndUpdate(req.params.id, req.body, {new:true});
     res.send(book);
 })
@@ -61,7 +61,7 @@ app.get('/api/books', async (req,res) => {
 
 app.get('/api/books/:id', async (req, res)=> {
     console.log(req.params.id);
-    let book = await BookModel.findById({_id:req.params.identifier});
+    let book = await BookModel.findById({_id:req.params.id});
     res.send(book);
     })
 

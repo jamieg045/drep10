@@ -21,7 +21,7 @@ export default function Edit(props) {
         //axios is a promised based web client
         //make a HTTP Request with GET method and pass as part of the
         //url.
-        axios.get('http://localhost:4000/api/book/' + id)
+        axios.get('http://localhost:4000/api/books/' + id)
             .then((response) => {
                 // Assign Response data to the arrays using useState.
                 setTitle(response.data.title);
@@ -40,7 +40,7 @@ export default function Edit(props) {
             cover: cover,
             author: author
         };
-        axios.put('http://localhost:4000/api/book/' + id, newBook)
+        axios.put('http://localhost:4000/api/books/' + id, newBook)
             .then((res) => {
                 console.log(res.data);
                 navigate('/read');
@@ -48,36 +48,35 @@ export default function Edit(props) {
     }
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label>Add Book Title: </label>
-                    <input type="text"
-                        className="form-control"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Add Cover: </label>
-                    <input type="text"
-                        className="form-control"
-                        value={cover}
-                        onChange={(e) => setCover(e.target.value)}
-                    />
-                    <div className="form-group">
-                    </div>
-                    <div className="form-group"></div>
-                    <label>Add Author: </label>
-                    <input type="text"
-                        className="form-control"
-                        value={author}
-                        onChange={(e) => setAuthor(e.target.value)}
-                    />
-                </div>
-                <div className="form-group">
-                    <input type="submit" value="Edit Book" className="btn btn-primary" />
-                </div>
-            </form>
-        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>Add Book Title: </label>
+            <input type="text"
+              className="form-control"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label>Add Release Year: </label>
+            <input type="text"
+              className="form-control"
+              value={cover}
+              onChange={(e) => setCover(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label>Add Poster Url: </label>
+            <input type="text"
+              className="form-control"
+              value={author}
+              onChange={(e) => setAuthor(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <input type="submit" value="Edit Book" className="btn btn-primary" />
+          </div>
+        </form>
+      </div>
     );
-}
+  }
