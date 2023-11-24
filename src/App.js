@@ -9,6 +9,8 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import Edit from './components/edit';
+
 
 
 //This function basically takes the Navbar component which is a stylised menu component and creates three webpages upon a singke-page application
@@ -35,6 +37,7 @@ function App() {
         <Route path='/' element={<Content></Content>}></Route>
         <Route path='/create' element={<Create></Create>}></Route>
         <Route path='/read' element={<Read></Read>}></Route>
+        <Route path='/edit/:id' element={<Edit></Edit>}></Route>
       </Routes>
 
       </div>

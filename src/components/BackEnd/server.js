@@ -45,7 +45,11 @@ const bookSchema = new mongoose.Schema({
 
 const BookModel = mongoose.model("books", bookSchema);
 
-
+app.put('/api/books/:id', async (req,res)=>{
+    console.log("Update: "+req.params.id);
+    let book = await BookModel.findByIdAndUpdate(req.params.id, req.body, {new:true});
+    res.send(book);
+})
 
 //Get method that takes in an array of JSON values and outputs them onto the console using a request
 app.get('/api/books', async (req,res) => {
