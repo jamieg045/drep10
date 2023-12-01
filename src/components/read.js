@@ -8,7 +8,7 @@ import axios from 'axios';
 //We use these components to call the data on jsonblob and output it onto the webpage         
 function Read()
 {
-    const [books, setData] = useState([]);
+    const [data, setData] = useState([]);
 
     useEffect(
         (
@@ -28,10 +28,24 @@ function Read()
         },[]
     );
 
+    const Reload = (e) => {
+        axios.get('http://localhost:4000/api/books')
+        .then(
+            (response) => {
+                setData(response.data);
+            }
+        )
+        .catch(
+            (error)=> {
+                console.log(error);
+            }
+        )
+    }
+
     return (
     <div>
         <h3>These are your Books!</h3>
-        <Books myBooks={books}></Books>
+        <Books myBooks={data} ReloadData={Reload}></Books>
     </div>
     );
 }
