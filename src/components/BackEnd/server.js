@@ -6,6 +6,11 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose');
 
 
+//Building react static files using express framework
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'build//static')));
+
+
 
 //Bodyparser helps us parse over the POST method and add the data to output to the user
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -84,6 +89,11 @@ app.post('/api/books', (req, res)=> {
         .catch(() => { res.send('Book not recieved'); })
 
         })
+
+//Handles any request that do not match file names or directories
+app.get('*', (req,res) => {
+    res.sendFile(path.join(__dirname+'/../build/index.html'));
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
